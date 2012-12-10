@@ -14,25 +14,32 @@ public class FactorialTest {
 				System.out.println("1 선택은 Factorial 구하기");
 				System.out.println("2 선택은 테스트 종료");
 				System.out.print("선택 : ");
-				int choice = s.nextInt();
-				switch (choice) {
-				case 1:
-					System.out.print("n!의 n을 입력해주세요 : ");
-					int input = s.nextInt();
-					if (input > 0)
-						System.out.println(input+"! ="+fac.factorial(input));
-					else
-						System.out.println("0이상의 숫자를 입력해주세요");
+				String choice = s.next();
+				if (choice.matches("\\d")) {					
+					switch (Integer.parseInt(choice)) {
+					case 1:
+						System.out.print("n!의 n을 입력해주세요 : ");
+						String input = s.next();
+						if (input.matches("\\d+")) {
+							System.out.println(input + "! ="+ fac.factorial(Long.parseLong(input)));
+						} else {
+							System.out.println("숫자를 입력해주세요.");
+						}
 						break;
-				case 2:
-					roof = false;
-					break;
-				default:
-					System.out.println("잘못된 번호를 입력하셨습니다.");
+					case 2:
+						roof = false;
+						break;
+					default:
+						System.out.println("1이나 2를 입력해 주세요.");
+					}
+					
+				}else{
+					System.out.println("숫자를 입력해 주세요.");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+
 	}
 }
