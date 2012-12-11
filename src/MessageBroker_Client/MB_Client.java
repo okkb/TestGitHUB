@@ -111,14 +111,14 @@ public class MB_Client {
 	public static void main(String[] args) {
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(	System.in));
-			boolean roof = true;
-			boolean roof2 = true;
+			boolean loop = true;
+			boolean loop2 = true;
 			String serverIp = "";
 			String targetIp = "";
 			String port = "";
 			int portINT = 0;
 			
-			while (roof) {
+			while (loop) {
 				System.out.print("연결할 Server의 IP주소 입력 :");
 				serverIp = br.readLine();
 				System.out.print("Message를 보낼 Target IP주소 입력 :");
@@ -129,13 +129,13 @@ public class MB_Client {
 				Matcher matcher2 = pattern.matcher(targetIp);
 
 				if (matcher.find() && matcher2.find()) { // 패턴이 일치확인
-					roof = false;
+					loop = false;
 				} else {
 					System.out.println("Server IP주소 또는 Target IP주소를 잘 못 입력 하셨습니다.");
 				}
 			}
 			
-			while (roof2) {
+			while (loop2) {
 				System.out.print("연결할 서버의 port(1023~65535) 입력 :");
 				port = br.readLine();
 				Pattern pattern = Pattern.compile("\\d{4,5}");
@@ -148,7 +148,7 @@ public class MB_Client {
 						System.out.println("1023~65535 번호로 입력하세요.");
 					} else {
 						System.out.println();
-						roof2 = false;
+						loop2 = false;
 					}
 					
 				} else {
