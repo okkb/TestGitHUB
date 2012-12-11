@@ -107,8 +107,8 @@ public class MB_Server {
 
 		public void run() {
 			try {
-				//target = in.readUTF();
-				targer= in.readFully();
+				target = in.readUTF();
+				//targer= in.readFully();
 				hashMap.put(sender, out);
 				while (in2 != null) {
 					String input = in2.readUTF();

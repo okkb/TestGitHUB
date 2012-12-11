@@ -1,8 +1,5 @@
 package MessageBroker_Server;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class ThreadPool {
 //	final static int THREADCOUNT = 100;
@@ -38,15 +35,20 @@ public class ThreadPool {
 //	
 	
 public static void main(String[] args){
-       Queue q =  new LinkedList();
- for(int i=0; i<100; i++){
-       q.offer(i);
-     
- }
-      
-       System.out.println("=queue");
-       while(!q.isEmpty()){
-              System.out.println(q.poll());
-       }
-}
+//       Queue q =  new LinkedList();
+//       for(int i=0; i<100; i++){
+//       q.offer(i);
+//       }
+//      
+//       System.out.println("=queue");
+//       while(!q.isEmpty()){
+//              System.out.println(q.poll());
+//       }
+	byte[] data = new byte[300];
+	for (int i = 0; i < data.length; i++) {
+		data[i] = (byte) (Math.random() * 100);
+		System.out.println(data[i]+"");
+	}
+	
+	}
 }
