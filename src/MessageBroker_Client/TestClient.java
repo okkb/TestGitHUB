@@ -37,6 +37,7 @@ public class TestClient {
 		data[7] = '3';
 
 		try {
+			while(true){    // loop 돌린다.
 			// 연결
 			Socket sock = new Socket(host, port);
 			DataInputStream dis = new DataInputStream(sock.getInputStream());
@@ -72,6 +73,7 @@ public class TestClient {
 			} finally {
 				sock = null;
 			}
+			}
 		} catch (UnknownHostException e) {
 			System.err.println("알 수 없는 host");
 			e.printStackTrace();
@@ -79,6 +81,7 @@ public class TestClient {
 			System.err.println("통신 오류");
 			e.printStackTrace();
 		}
+		
 	}
 
 	/**
