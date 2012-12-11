@@ -9,6 +9,7 @@ import java.net.Socket;
 public class TestServer {
 
 	public static void main(String[] args) {
+		ServerSocket ssocket =null;
 		if (args.length != 1) {
 			System.err.println("java TestServer <port>");
 			System.exit(1);
@@ -24,13 +25,11 @@ public class TestServer {
 		try {
 			// 연결
 		/////while{
-				ServerSocket ssocket = new ServerSocket(port);
+				ssocket = new ServerSocket(port);
 				System.out.println("접속을 기다림");
 				Socket socket = ssocket.accept();
-				DataInputStream dis = new DataInputStream(
-						socket.getInputStream());
-				DataOutputStream dos = new DataOutputStream(
-						socket.getOutputStream());
+				DataInputStream dis = new DataInputStream(socket.getInputStream());
+				DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
 
 				// 수신
 				dis.readFully(input);
