@@ -1,4 +1,4 @@
-package message.broker;
+package message.msgbroker;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

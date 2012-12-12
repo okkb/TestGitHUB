@@ -1,4 +1,4 @@
-package message.broker;
+package message.msgbroker;
 
 public class Queue { 
 	private static final int MAX_JOB = 2000;
