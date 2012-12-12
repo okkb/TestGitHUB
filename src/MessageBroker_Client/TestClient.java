@@ -1,113 +1,121 @@
 package MessageBroker_Client;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+/**
+ * Å×½ºÆ®¿ë client
+ * 
+ * @author Simon Lee
+ */
 public class TestClient {
-
+	/**
+	 * Entry Point
+	 * 
+	 * @param args
+	 *            port
+	 */
 	public static void main(String[] args) {
 		if (args.length != 2) {
 			System.err.println("java TestClient <host name> <port>");
 			System.exit(1);
 		}
 
-		String host = args[0]; // ì„œë²„ ip
+		String host = args[0];
 		int port = -1;
 
 		try {
-			port = Integer.parseInt(args[1]); //ì„œë²„ port
+			port = Integer.parseInt(args[1]);
 		} catch (NumberFormatException e) {
 			System.err.println("java TestClient <host name> <port>");
 			System.exit(2);
 		}
 
-		// ëœë¤ ë°ì´í„° ìƒì„±
+		// ·£´ı µ¥ÀÌÅÍ »ı¼º
 		byte[] data = new byte[300];
 		byte[] result = new byte[300];
 		for (int i = 0; i < data.length; i++) {
 			data[i] = (byte) (Math.random() * 100);
 		}
-		
-		// ê¸¸ì´ í•„ë“œì— 0000000300 set
+
+		// ±æÀÌ ÇÊµå¿¡ 0000000300 set
 		for (int i = 0; i < 10; i++) {
 			data[i] = '0';
 		}
 		data[7] = '3';
 
 		try {
-			while(true){    // loop ëŒë¦°ë‹¤.
-			// ì—°ê²°
-			Socket sock = new Socket(host, port);
-			DataInputStream dis = new DataInputStream(sock.getInputStream());
-			DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
+			while (true) {
+				// ¿¬°á
+				Socket sock = new Socket(host, port);
+				DataInputStream dis = new DataInputStream(sock.getInputStream());
+				DataOutputStream dos = new DataOutputStream(
+						sock.getOutputStream());
 
-			// ì†¡ìˆ˜ì‹ 
-			dos.write(data);
-			dis.readFully(result);
+				// ¼Û¼ö½Å
+				dos.write(data);
+				dis.readFully(result);
 
-			// ê²°ê³¼ í™•ì¸ - ì¼ì¹˜í•´ì•¼ ì •ìƒ
-			if (compare(data, result)) {
-				System.out.println("ë°ì´í„° ì¼ì¹˜");
-			} else {
-				System.out.println("ë°ì´í„° ë¶ˆì¼ì¹˜");
-			}
+				// °á°ú È®ÀÎ - ÀÏÄ¡ÇØ¾ß Á¤»ó
+				if (compare(data, result)) {
+					System.out.println("µ¥ÀÌÅÍ ÀÏÄ¡");
+				} else {
+					System.out.println("µ¥ÀÌÅÍ ºÒÀÏÄ¡");
+				}
 
-			// ì—°ê²° ì¢…ë£Œ
-			try {
-				dis.close();
-			} catch (Exception ignored) {
-			} finally {
-				dis = null;
-			}
-			try {
-				dos.close();
-			} catch (Exception ignored) {
-			} finally {
-				dos = null;
-			}
-			try {
-				sock.close();
-			} catch (Exception ignored) {
-			} finally {
-				sock = null;
-			}
+				// ¿¬°á Á¾·á
+				try {
+					dis.close();
+				} catch (Exception ignored) {
+				} finally {
+					dis = null;
+				}
+				try {
+					dos.close();
+				} catch (Exception ignored) {
+				} finally {
+					dos = null;
+				}
+				try {
+					sock.close();
+				} catch (Exception ignored) {
+				} finally {
+					sock = null;
+				}
 			}
 		} catch (UnknownHostException e) {
-			System.err.println("ì•Œ ìˆ˜ ì—†ëŠ” host");
+			System.err.println("¾Ë ¼ö ¾ø´Â host");
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.err.println("í†µì‹  ì˜¤ë¥˜");
+			System.err.println("Åë½Å ¿À·ù");
 			e.printStackTrace();
 		}
-		
 	}
 
 	/**
-	 * Sourceì™€ destinationì„ ë¹„êµ
+	 * Source¿Í destinationÀ» ºñ±³
 	 * 
 	 * @param src
 	 * @param dst
-	 * @return ê°™ìœ¼ë©´ true
+	 * @return °°À¸¸é true
 	 */
 	private static boolean compare(byte[] src, byte[] dst) {
 		boolean result = true;
 
-		if (src == null || dst == null || src.length != dst.length)
-		{
+		if (src == null || dst == null || src.length != dst.length) {
 			result = false;
-		} else 
-		{
-			for (int i = 0; i < src.length; i++)
-			{
+		} else {
+			for (int i = 0; i < src.length; i++) {
 				if (src[i] != dst[i]) {
 					result = false;
 					break;
 				}
 			}
 		}
+
 		return result;
 	}
-	
 }

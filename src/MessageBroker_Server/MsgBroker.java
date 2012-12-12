@@ -46,12 +46,12 @@ public class MsgBroker {
 		ExecutorService exec = Executors.newFixedThreadPool(THREADCOUNT);
 		try {
 			serverSocket = new ServerSocket(port);
-			System.out.println("ì„œë²„ê°€ ì‹œì‘ë˜ì—ˆìŠµë‹ˆë‹¤.");
-			// ì“°ë ˆë“œí’€ ìƒì„± THREADCOUNT ê°œìˆ˜ ë§Œí¼
+			System.out.println("¼­¹ö°¡ ½ÃÀÛµÇ¾ú½À´Ï´Ù.");
+			// ¾²·¹µåÇ® »ı¼º THREADCOUNT °³¼ö ¸¸Å­
 		
 			while (true) 
 			{
-				System.out.println("<Client ì ‘ì†ì„ ê¸°ë‹¤ë¦½ë‹ˆë‹¤.>");
+				System.out.println("<Client Á¢¼ÓÀ» ±â´Ù¸³´Ï´Ù.>");
 				socket = serverSocket.accept();
 				if (que.offer(socket)) {
 					try {						
@@ -61,11 +61,11 @@ public class MsgBroker {
 						e.printStackTrace();
 					}
 				}else{
-					System.err.println("Quereì— socket ì¶”ê°€ ì‹¤íŒ¨");
+					System.err.println("Quere¿¡ socket Ãß°¡ ½ÇÆĞ");
 				}				
 			}
 		} catch (IOException e) {
-			System.err.println("í†µì‹  ì˜¤ë¥˜");
+			System.err.println("Åë½Å ¿À·ù");
 			e.printStackTrace();
 		}finally{
 			try{
@@ -85,7 +85,7 @@ public class MsgBroker {
 		private byte[] input = new byte[300];
 		private byte[] msgSize = new byte[10];
 
-		public ServerThread(Socket socket) throws IOException { // ìƒì„±ì
+		public ServerThread(Socket socket) throws IOException { // »ı¼ºÀÚ
 			super();
 			this.dis = new DataInputStream(socket.getInputStream());
 			this.dos = new DataOutputStream(socket.getOutputStream());
@@ -94,7 +94,7 @@ public class MsgBroker {
 		public void run()
 		{
 			try {
-				dis.readFully(input); // ìˆ˜ì‹ 
+				dis.readFully(input); // ¼ö½Å
 				for (int i = 0; i < 10; i++) {
 					msgSize[i] = input[i];
 				}
@@ -102,9 +102,9 @@ public class MsgBroker {
 				
 				/////////
 				if (msgSize[7] == '3' && msgSize[8] == '0' && msgSize[9] == '0')
-					dos.write(input);// ì†¡ì‹ 
+					dos.write(input);// ¼Û½Å
 				else
-					dos.writeBytes("[from Server] ì „ì†¡ ì‹¤íŒ¨");
+					dos.writeBytes("[from Server] Àü¼Û ½ÇÆĞ");
 				////////////
 
 			} catch (IOException e) {
