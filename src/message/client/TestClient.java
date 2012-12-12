@@ -1,4 +1,4 @@
-package client;
+package message.client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
