@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MsgBroker {
-	private static final int THREAD_COUNT =1000;
+	private static final int THREAD_COUNT =2000;
 	private String serverName="";
 	private int serverPort=-1;
 	private int clientPort = -1;
