@@ -17,9 +17,8 @@ public class MsgThread implements Runnable {
 	private byte[] msgSize = new byte[10];
 
 	public MsgThread(Socket socket, String serverName, int serverPort) throws IOException { // 积己磊
-		super();
+		//super();
 		this.socket = socket;
-		//this.serverSocket = serverSocket;
 		this.serverSocket = new Socket(serverName, serverPort); // 辑滚 立加茄 socket
 		this.cdis = new DataInputStream(this.socket.getInputStream());
 		this.cdos = new DataOutputStream(this.socket.getOutputStream());
