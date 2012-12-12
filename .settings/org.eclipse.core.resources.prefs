@@ -1,4 +1,4 @@
 eclipse.preferences.version=1
-encoding//src/MessageBroker_Server/MsgBroker.java=MS949
+encoding//src/broker/MsgBroker.java=MS949
 encoding//src/client/TestClient.java=MS949
 encoding/<project>=MS949

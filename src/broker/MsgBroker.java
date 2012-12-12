@@ -1,4 +1,4 @@
-package MessageBroker_Server;
+package broker;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
