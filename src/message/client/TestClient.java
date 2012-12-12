@@ -48,20 +48,20 @@ public class TestClient {
 		data[7] = '3';
 
 		try {
+			long count =0;
 			while (true) {
 				// 연결
 				Socket sock = new Socket(host, port);
 				DataInputStream dis = new DataInputStream(sock.getInputStream());
-				DataOutputStream dos = new DataOutputStream(
-						sock.getOutputStream());
+				DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
 
 				// 송수신
 				dos.write(data);
 				dis.readFully(result);
 
 				// 결과 확인 - 일치해야 정상
-				if (compare(data, result)) {
-					System.out.println("데이터 일치");
+				if (compare(data, result)) {					
+					System.out.println("데이터 일치"+(count++));
 				} else {
 					System.out.println("데이터 불일치");
 				}
