@@ -49,7 +49,8 @@ public class MsgBroker {
 			System.out.println("서버가 시작되었습니다.");
 			// 쓰레드풀 생성 THREADCOUNT 개수 만큼
 		
-			while (true) {
+			while (true) 
+			{
 				System.out.println("<Client 접속을 기다립니다.>");
 				socket = serverSocket.accept();
 				if (que.offer(socket)) {
@@ -61,8 +62,7 @@ public class MsgBroker {
 					}
 				}else{
 					System.err.println("Quere에 socket 추가 실패");
-				}
-				
+				}				
 			}
 		} catch (IOException e) {
 			System.err.println("통신 오류");
