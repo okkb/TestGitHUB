@@ -67,7 +67,11 @@ public class TestClient {
 				} else {
 					System.out.println("데이터 불일치");
 				}
-
+				try{////////////////////////////////////////////////////////////
+				Thread.sleep((int)(Math.random()*10));
+				}catch(InterruptedException e){
+					e.printStackTrace();
+				}///////////////////////////////////////////////////////////////
 				// 연결 종료
 				try {
 					dis.close();

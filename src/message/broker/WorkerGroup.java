@@ -5,12 +5,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class WorkerGroup extends Thread {
-	private static final int THREAD_COUNT = 2000;
+	private static final int THREAD_COUNT = 100;
 	private String serverName = "";
 	private int serverPort = -1;
 	private int clientPort = -1;
 	private final JobQueue que;	
 	private final Worker[] workers;
+	
 	public WorkerGroup(String serverName, int serverPort, int clientPort) {
 		this.serverName = serverName;
 		this.serverPort = serverPort;
@@ -20,6 +21,7 @@ public class WorkerGroup extends Thread {
 	}
 
 	public void run() {
+		
 		for (int i = 0; i < THREAD_COUNT; i++) {
 			workers[i] = new Worker(que);
 			workers[i].setDaemon(true);
@@ -33,12 +35,11 @@ public class WorkerGroup extends Thread {
 			css = new ServerSocket(clientPort);
 			System.out.println("[Worker&Mutex]Broker가 시작되었습니다.");
 		} catch (IOException e) {
-			System.err.println("css = new ServerSocket(clientPort) : "
-					+ e.getCause());
+			System.err.println("css = new ServerSocket(clientPort) : "+ e.getCause());
 			e.printStackTrace();
 		}
 		try {
-			while (true) { // 무한 루프
+			while (true) {
 				try {
 					cs = css.accept();
 				} catch (IOException e) {

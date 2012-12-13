@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MsgServer {
-	private static final int THREADCOUNT =100;
+	private static final int THREADCOUNT =10;
 	private int serverPort=-1;	
 	private Queue<Socket> que = new LinkedList<Socket>();
 

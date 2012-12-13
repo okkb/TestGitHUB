@@ -25,7 +25,43 @@ public class Job {
 		this.sdis = new DataInputStream(this.serverSocket.getInputStream());
 		this.sdos = new DataOutputStream(this.serverSocket.getOutputStream());
 	}
+	private static int checkMsgLength(byte[] data) {/// 메시지필드 크기 구함
+		byte[] msgSize = new byte[10];
+		for (int i = 0; i < 10; i++) {
+			msgSize[i] = data[i];
+		}
+		char[] len = new char[10];
+		for (int i = 0; i < 10; i++) {
+			if (msgSize[i] != 0) {
+				int k = 0;
+				for (int j = i; j < 10; j++) {
+					len[k] = (char) msgSize[j];
+					k++;
+				}
+				break;
+			}
+		}
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < len.length; i++) {
+			sb.append(len[i]);
+		}
+		return Integer.parseInt(sb.toString()) - 10;
+	}
+	private static boolean compare(byte[] src, byte[] dst) { /// 같은지 검사
+		boolean result = true;
 
+		if (src == null || dst == null || src.length != dst.length) {
+			result = false;
+		} else {
+			for (int i = 0; i < src.length; i++) {
+				if (src[i] != dst[i]) {
+					result = false;
+					break;
+				}
+			}
+		}
+		return result;
+	}
 	public void execute() {
 		try {
 			cdis.readFully(clientInput); // 수신
