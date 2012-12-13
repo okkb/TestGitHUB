@@ -5,8 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class WorkerGroup extends Thread {
-	private static final int THREAD_COUNT = 500;
-	private static final int QUEUE_LENGTH = 500;
+	private static final int THREAD_COUNT = 2000;
+	//private static final int QUEUE_LENGTH = 500;
 	private String serverName = "";
 	private int serverPort = -1;
 	private int clientPort = -1;
@@ -17,7 +17,7 @@ public class WorkerGroup extends Thread {
 		this.serverName = serverName;
 		this.serverPort = serverPort;
 		this.clientPort = clientPort;
-		this.que = new JobQueue(/*QUEUE_LENGTH*/);
+		this.que = new JobQueue(/* QUEUE_LENGTH */);
 		this.workers = new Worker[THREAD_COUNT];
 	}
 
@@ -31,14 +31,15 @@ public class WorkerGroup extends Thread {
 		ServerSocket css = null; // ClientServerSocket
 		Socket cs = null; // ClientSocket
 
+		try {// /1
+			css = new ServerSocket(clientPort);
+			System.out.println("[Worker&Mutex]Broker가 시작되었습니다.");
+		} catch (IOException e) {
+			System.err.println("css = new ServerSocket(clientPort) : "
+					+ e.getCause());
+			e.printStackTrace();
+		}// /
 		try {
-			try {// /1
-				css = new ServerSocket(clientPort);
-				System.out.println("[Worker&Mutex]Broker가 시작되었습니다.");
-			} catch (IOException e) {
-				System.err.println("css = new ServerSocket(clientPort) : "+ e.getCause());
-				e.printStackTrace();
-			}// /
 			while (true) { // 무한 루프
 				try {// /2
 					cs = css.accept();
@@ -52,19 +53,12 @@ public class WorkerGroup extends Thread {
 				} catch (IOException e) {
 					System.err.println("Job job = new Job(cs, serverName, serverPort) : "+ e.getCause());
 					e.printStackTrace();
+				} catch (InterruptedException e) {
+					System.err.println("run() in-2 : " + e.getCause());
+					e.printStackTrace();
 				}
-
 			}
-		}
-		// catch(InterruptedException e){
-		// System.err.println("run() in-2 : " + e.getCause());
-		// e.printStackTrace();
-		// }
-		// catch (IOException e) {
-		// System.err.println("run() in-3 : " + e.getCause());
-		// e.printStackTrace();
-		// }
-		finally {
+		} finally {// / 밖으로
 			try {
 				css.close();
 			} catch (IOException e) {
@@ -74,5 +68,11 @@ public class WorkerGroup extends Thread {
 				css = null;
 			}
 		}
+
+		// catch (IOException e) {
+		// System.err.println("run() in-3 : " + e.getCause());
+		// e.printStackTrace();
+		// }
+
 	}
 }

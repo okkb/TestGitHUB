@@ -12,8 +12,7 @@ public class ServerThread implements Runnable {
 	private byte[] clientInput = new byte[300];
 	private byte[] msgSize = new byte[10];
 
-	public ServerThread(Socket socket) throws IOException { // »ý¼ºÀÚ
-		super();
+	public ServerThread(Socket socket) throws IOException {
 		this.socket = socket;
 		this.cdis = new DataInputStream(this.socket.getInputStream());
 		this.cdos = new DataOutputStream(this.socket.getOutputStream());

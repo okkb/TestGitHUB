@@ -24,9 +24,9 @@ public class JobQueue {
 
 	
 
-	public synchronized void enQueue(Job job) /*throws InterruptedException*/ // in
+	public /*synchronized */void enQueue(Job job) throws InterruptedException // in
 	{
-		//key.acquire(); // Å° È¹µæ ¼º°ø
+		key.acquire(); // Å° È¹µæ ¼º°ø
 	////while (count >= jobQue.length) {
 	
 //			key.release(); // Å°¹Ý³³
@@ -38,39 +38,39 @@ public class JobQueue {
 		////		System.err.println("enQueue in-1 : " + e.getCause());
 		////		e.printStackTrace();
 		////	}
-	//	}
+//		}
 	////	jobQue[tail] = job;
 	////	tail = (tail + 1) % jobQue.length;
 	////	count++;
 		jobQue.add(job);
-		notifyAll();   ///
-//		lock.release();
-//		key.release(); // Å° ¹Ý³³
+//		notifyAll();   ///
+		lock.release();
+		key.release(); // Å° ¹Ý³³
 	}
 
-	public synchronized Job deQueue() /*throws InterruptedException*/ // out
+	public /*synchronized*/ Job deQueue() throws InterruptedException // out
 	{
-		//key.acquire(); // Å° È¹µæ ¼º°ø
+		key.acquire(); // Å° È¹µæ ¼º°ø
 ////		while (count <= 0) {
 		while(jobQue.size() <=0){
-//			key.release(); // Å°¹Ý³³
-//			lock.acquire(); // enQueueµÉ¶§±îÁö wait
-//			key.acquire();// Å° È¹µæ ¼º°ø
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				System.err.println("putJob in-1 : " + e.getCause());
-				e.printStackTrace();
-			}
+			key.release(); // Å°¹Ý³³
+			lock.acquire(); // enQueueµÉ¶§±îÁö wait
+			key.acquire();// Å° È¹µæ ¼º°ø
+//			try {
+//				wait();
+//			} catch (InterruptedException e) {
+//				System.err.println("putJob in-1 : " + e.getCause());
+//				e.printStackTrace();
+//			}
 		}
 		
 ////		Job job = jobQue[head];
 ////		head = (head + 1) % jobQue.length;
 ////		count--;
 		Job job = jobQue.remove();
-		notifyAll();
-//		lock.release();
-//		key.release();
+//		notifyAll();
+		lock.release();
+		key.release();
 		return job;
 	}
 }

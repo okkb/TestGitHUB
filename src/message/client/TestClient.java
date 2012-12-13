@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.sql.Time;
 
 /**
  * 테스트용 client
@@ -58,7 +59,6 @@ public class TestClient {
 				Socket sock = new Socket(host, port);
 				DataInputStream dis = new DataInputStream(sock.getInputStream());
 				DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
-
 				// 송수신
 				dos.write(data);
 				dis.readFully(result);
