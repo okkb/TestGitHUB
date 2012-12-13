@@ -13,8 +13,14 @@ public class WorkerThread extends Thread
     {
         while ( true ) 
         {
-            Job job = que.takeJob();
+//        	try{
+            Job job = que.deQueue();
             job.execute();
+//        	}
+//        	catch(InterruptedException e){
+//        		System.err.println("WorkerThread in-1 : " + e.getCause());
+//				e.printStackTrace();
+//        	}           
         }
     }
 }
