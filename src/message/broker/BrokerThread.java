@@ -1,4 +1,4 @@
-package message.msgbroker;
+package message.broker;
 
 import java.io.IOException;
 import java.net.ServerSocket;

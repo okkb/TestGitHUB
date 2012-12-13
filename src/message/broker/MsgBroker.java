@@ -1,4 +1,4 @@
-package message.msgbroker;
+package message.broker;
 
 
 public class MsgBroker {

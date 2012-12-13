@@ -1,4 +1,4 @@
-package message.broker.useapi;
+package message.broker.test;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
