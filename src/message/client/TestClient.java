@@ -5,7 +5,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.sql.Time;
 
 /**
  * 테스트용 client
@@ -36,7 +35,6 @@ public class TestClient {
 //		}
 
 		String host = "192.168.0.202";
-		//String host = "127.0.0.1";
 		int port = 6666;
 		
 		// 랜덤 데이터 생성

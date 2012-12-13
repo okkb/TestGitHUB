@@ -16,8 +16,7 @@ public class Job {
 	private byte[] serverInput = new byte[300];
 	private byte[] msgSize = new byte[10];
 
-	public Job(Socket socket, String serverName, int serverPort)
-			throws IOException // 소켓 , 서버아이피, 서버포트
+	public Job(Socket socket, String serverName, int serverPort) throws IOException // 소켓 , 서버아이피, 서버포트
 	{
 		this.socket = socket;
 		this.serverSocket = new Socket(serverName, serverPort); // 서버 접속한 socket
@@ -94,7 +93,7 @@ public class Job {
 				serverSocket = null;
 			}
 		} catch (IOException e) {
-			System.err.println("Job in : " + e.getCause());
+			System.err.println("Job 송수신 중 : " + e.getCause());
 			e.printStackTrace();
 		}
 	}
