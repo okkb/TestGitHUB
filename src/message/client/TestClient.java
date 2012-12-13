@@ -19,21 +19,25 @@ public class TestClient {
 	 *            port
 	 */
 	public static void main(String[] args) {
-		if (args.length != 2) {
-			System.err.println("java TestClient <host name> <port>");
-			System.exit(1);
-		}
+//		if (args.length != 2) {
+//			System.err.println("java TestClient <host name> <port>");
+//			System.exit(1);
+//		}
+//
+//		String host = args[0];
+//		int port = -1;
+//
+//		try {
+//			port = Integer.parseInt(args[1]);
+//		} catch (NumberFormatException e) {
+//			System.err.println("java TestClient <host name> <port>");
+//			System.exit(2);
+//		}
 
-		String host = args[0];
-		int port = -1;
-
-		try {
-			port = Integer.parseInt(args[1]);
-		} catch (NumberFormatException e) {
-			System.err.println("java TestClient <host name> <port>");
-			System.exit(2);
-		}
-
+		String host = "192.168.0.202";
+		//String host = "127.0.0.1";
+		int port = 5555;
+		
 		// 랜덤 데이터 생성
 		byte[] data = new byte[300];
 		byte[] result = new byte[300];

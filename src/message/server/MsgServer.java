@@ -17,17 +17,18 @@ public class MsgServer {
 		this.serverPort=serverPort;
 	}
 	public static void main(String args[]) {
-		if (args.length != 1) {
-			System.err.println("java TestServer <port>");
-			System.exit(1);
-		}
-		int port = -1;
-		try {
-			port = Integer.parseInt(args[0]);
-		} catch (NumberFormatException e) {
-			System.err.println("java TestServer <port>");
-			System.exit(2);
-		}
+//		if (args.length != 1) {
+//			System.err.println("java TestServer <port>");
+//			System.exit(1);
+//		}
+//		int port = -1;
+//		try {
+//			port = Integer.parseInt(args[0]);
+//		} catch (NumberFormatException e) {
+//			System.err.println("java TestServer <port>");
+//			System.exit(2);
+//		}
+		int port =1023;    // 서버 포트 하드코딩!!! 삭제 필요
 		try {
 			new MsgServer(port).start();
 		} catch (InterruptedException e) {

@@ -29,12 +29,11 @@ public class Job
     public void execute () {//실행될꺼듯 
     	try {
 			cdis.readFully(clientInput); // 수신
+			
 			for (int i = 0; i < 10; i++) {
 				msgSize[i] = clientInput[i];
 			}
-
-			// ///////// Spec 검사 수정 필요
-			if (msgSize[7] == '3' && msgSize[8] == '0' && msgSize[9] == '0') {
+			if (msgSize[7] == '3' && msgSize[8] == '0' && msgSize[9] == '0') {//////// Spec 검사 수정 필요
 				sdos.write(clientInput);// 송신
 				sdis.readFully(serverInput);
 				/*
