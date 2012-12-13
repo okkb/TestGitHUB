@@ -5,7 +5,7 @@ public class Queue {
 	private final Mutex lock = new Mutex();
 	private static final int MAX_JOB = 2000;
 	private final Job[] jobQue;   // 배열로 큐 구현 
-	private final WorkerThread[] workerThread;
+
 	private int tail;
 	private int head;
 	private int count;
@@ -16,18 +16,10 @@ public class Queue {
 		this.head = 0;
 		this.tail = 0;
 		this.count = 0;
-		this.workerThread = new WorkerThread[threads]; // 입력한 갯수만큼 쓰레드 생성
-
-		for (int i = 0; i < workerThread.length; i++) {
-			workerThread[i] = new WorkerThread(this);
-		}
+	
 	}
 
-	public void startWorkers() {
-		for (int i = 0; i < workerThread.length; i++) {
-			workerThread[i].start();
-		}
-	}
+	
 
 	public synchronized void enQueue(Job job) /*throws InterruptedException*/ // in
 	{

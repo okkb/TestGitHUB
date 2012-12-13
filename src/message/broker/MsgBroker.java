@@ -27,9 +27,7 @@ public class MsgBroker {
 		int clientPort = 6666;  // 하드 코딩 삭제 필요
 		
 		try {
-			Queue que = new Queue(2000);  // WorkerThread 100개
-			que.startWorkers();// Queue startWorkers()시작 100개의 쓰레드 계속 Que에서 request요청 하고 실행!  요청중 없음 wait
-			new BrokerThread(serverName, serverPort, clientPort, que).start();
+			new WorkerGroup(serverName, serverPort, clientPort).start();
 		} catch (Exception e) {
 			System.out.println(e.getCause());
 			e.printStackTrace();
