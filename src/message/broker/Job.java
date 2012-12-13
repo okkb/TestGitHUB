@@ -27,7 +27,7 @@ public class Job {
 		this.sdos = new DataOutputStream(this.serverSocket.getOutputStream());
 	}
 
-	public void execute() {// 실행될꺼듯
+	public void execute() {
 		try {
 			cdis.readFully(clientInput); // 수신
 			for (int i = 0; i < 10; i++) {
@@ -37,12 +37,6 @@ public class Job {
 			// ///////// Spec 검사 수정 필요
 			if (msgSize[7] == '3' && msgSize[8] == '0' && msgSize[9] == '0') {
 				sdos.write(clientInput);// 송신
-//				try{
-//				Thread.sleep((int)(Math.random()*10));
-//				}catch(InterruptedException e){
-//					System.err.println("	Thread.sleep((int)(Math.random()*1000)) : " + e.getCause());
-//					e.printStackTrace();
-//				}
 				sdis.readFully(serverInput);
 				/*
 				 * 서버에서 온 테이더 spec준수 검사 필요
