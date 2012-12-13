@@ -2,9 +2,9 @@ package message.broker;
 
 public class Worker extends Thread 
 {
-    private final Queue que;
+    private final JobQueue que;
 
-    public Worker (Queue que)   //持失切
+    public Worker (JobQueue que)   //持失切
     {
         this.que = que;
     }

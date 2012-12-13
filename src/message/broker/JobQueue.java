@@ -1,18 +1,21 @@
 package message.broker;
 
-public class Queue {
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class JobQueue {
 	private final Mutex key = new Mutex();
 	private final Mutex lock = new Mutex();
-	private static final int MAX_JOB = 2000;
-	private final Job[] jobQue;   // 배열로 큐 구현 
-
+	//private final Job[] jobQue;   // 배열로 큐 구현 
+	private Queue<Job> jobQue = new LinkedList<Job>();
 	private int tail;
 	private int head;
 	private int count;
 
-	public Queue(int threads) // Queue생성자
+	public JobQueue(/*int size*/) // Queue생성자
 	{
-		this.jobQue = new Job[MAX_JOB]; // 큐 공간 100개 
+	//	this.jobQue = new Job[size]; 
+		
 		this.head = 0;
 		this.tail = 0;
 		this.count = 0;
@@ -24,20 +27,22 @@ public class Queue {
 	public synchronized void enQueue(Job job) /*throws InterruptedException*/ // in
 	{
 		//key.acquire(); // 키 획득 성공
-		while (count >= jobQue.length) {
+	////while (count >= jobQue.length) {
+	
 //			key.release(); // 키반납
 //			lock.acquire(); // deQueue될때까지 wait
 //			key.acquire();// 키 획득 성공
-			try {
-				wait();
-			} catch (InterruptedException e) {
-				System.err.println("enQueue in-1 : " + e.getCause());
-				e.printStackTrace();
-			}
-		}
-		jobQue[tail] = job;
-		tail = (tail + 1) % jobQue.length;
-		count++;
+	////		try {
+	////			wait();
+		////	} catch (InterruptedException e) {
+		////		System.err.println("enQueue in-1 : " + e.getCause());
+		////		e.printStackTrace();
+		////	}
+	//	}
+	////	jobQue[tail] = job;
+	////	tail = (tail + 1) % jobQue.length;
+	////	count++;
+		jobQue.add(job);
 		notifyAll();   ///
 //		lock.release();
 //		key.release(); // 키 반납
@@ -46,7 +51,8 @@ public class Queue {
 	public synchronized Job deQueue() /*throws InterruptedException*/ // out
 	{
 		//key.acquire(); // 키 획득 성공
-		while (count <= 0) {
+////		while (count <= 0) {
+		while(jobQue.size() <=0){
 //			key.release(); // 키반납
 //			lock.acquire(); // enQueue될때까지 wait
 //			key.acquire();// 키 획득 성공
@@ -58,9 +64,10 @@ public class Queue {
 			}
 		}
 		
-		Job job = jobQue[head];
-		head = (head + 1) % jobQue.length;
-		count--;
+////		Job job = jobQue[head];
+////		head = (head + 1) % jobQue.length;
+////		count--;
+		Job job = jobQue.remove();
 		notifyAll();
 //		lock.release();
 //		key.release();

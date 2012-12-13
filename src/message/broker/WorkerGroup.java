@@ -10,21 +10,21 @@ public class WorkerGroup extends Thread {
 	private String serverName = "";
 	private int serverPort = -1;
 	private int clientPort = -1;
-	private final Queue que;
+	private final JobQueue que;
 	private final Worker[] workers;
 
 	public WorkerGroup(String serverName, int serverPort, int clientPort) {
 		this.serverName = serverName;
 		this.serverPort = serverPort;
 		this.clientPort = clientPort;
-		this.que = new Queue(QUEUE_LENGTH);
+		this.que = new JobQueue(/*QUEUE_LENGTH*/);
 		this.workers = new Worker[THREAD_COUNT];
 	}
 
 	public void run() {
 		for (int i = 0; i < THREAD_COUNT; i++) {
 			workers[i] = new Worker(que);
-			//workers[i].setDaemon(true);
+			workers[i].setDaemon(true);
 			workers[i].start();
 		}
 
