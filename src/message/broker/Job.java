@@ -5,8 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-public class Job 
-{
+public class Job {
 	private Socket socket = null;
 	private Socket serverSocket = null;
 	private DataInputStream cdis;
@@ -17,17 +16,19 @@ public class Job
 	private byte[] serverInput = new byte[300];
 	private byte[] msgSize = new byte[10];
 
-    public Job (Socket socket, String serverName, int serverPort) throws IOException  // 소켓 ,  서버아이피, 서버포트
-    {   
-    	this.socket = socket;
+	public Job(Socket socket, String serverName, int serverPort)
+			throws IOException // 소켓 , 서버아이피, 서버포트
+	{
+		this.socket = socket;
 		this.serverSocket = new Socket(serverName, serverPort); // 서버 접속한 socket
 		this.cdis = new DataInputStream(this.socket.getInputStream());
 		this.cdos = new DataOutputStream(this.socket.getOutputStream());
 		this.sdis = new DataInputStream(this.serverSocket.getInputStream());
-		this.sdos = new DataOutputStream(this.serverSocket.getOutputStream());       
-    }
-    public void execute () {//실행될꺼듯 
-    	try {
+		this.sdos = new DataOutputStream(this.serverSocket.getOutputStream());
+	}
+
+	public void execute() {// 실행될꺼듯
+		try {
 			cdis.readFully(clientInput); // 수신
 			for (int i = 0; i < 10; i++) {
 				msgSize[i] = clientInput[i];
@@ -36,6 +37,12 @@ public class Job
 			// ///////// Spec 검사 수정 필요
 			if (msgSize[7] == '3' && msgSize[8] == '0' && msgSize[9] == '0') {
 				sdos.write(clientInput);// 송신
+//				try{
+//				Thread.sleep((int)(Math.random()*10));
+//				}catch(InterruptedException e){
+//					System.err.println("	Thread.sleep((int)(Math.random()*1000)) : " + e.getCause());
+//					e.printStackTrace();
+//				}
 				sdis.readFully(serverInput);
 				/*
 				 * 서버에서 온 테이더 spec준수 검사 필요
@@ -44,11 +51,10 @@ public class Job
 			} else {
 				cdos.writeBytes("[from Broker] Message Spec 위반 전송 실패");
 			}
-			// //////////
 			try {
 				cdis.close();
 			} catch (IOException e) {
-				System.err.println("Job in-1 : " + e.getCause());
+				System.err.println("cdis.close() : " + e.getCause());
 				e.printStackTrace();
 			} finally {
 				cdis = null;
@@ -56,7 +62,7 @@ public class Job
 			try {
 				cdos.close();
 			} catch (IOException e) {
-				System.err.println("Job in-2 : " + e.getCause());
+				System.err.println("cdos.close() : " + e.getCause());
 				e.printStackTrace();
 			} finally {
 				cdos = null;
@@ -64,7 +70,7 @@ public class Job
 			try {
 				socket.close();
 			} catch (IOException e) {
-				System.err.println("Job in-3 : " + e.getCause());
+				System.err.println("socket.close() : " + e.getCause());
 				e.printStackTrace();
 			} finally {
 				socket = null;
@@ -72,7 +78,7 @@ public class Job
 			try {
 				sdis.close();
 			} catch (IOException e) {
-				System.err.println("Job in-4 : " + e.getCause());
+				System.err.println("sdis.close() : " + e.getCause());
 				e.printStackTrace();
 			} finally {
 				sdis = null;
@@ -80,7 +86,7 @@ public class Job
 			try {
 				sdos.close();
 			} catch (IOException e) {
-				System.err.println("Job in-5 : " + e.getCause());
+				System.err.println("	sdos.close() : " + e.getCause());
 				e.printStackTrace();
 			} finally {
 				sdos = null;
@@ -88,15 +94,15 @@ public class Job
 			try {
 				serverSocket.close();
 			} catch (IOException e) {
-				System.err.println("Job in-6 : " + e.getCause());
+				System.err.println("serverSocket.close() : " + e.getCause());
 				e.printStackTrace();
 			} finally {
 				serverSocket = null;
 			}
 		} catch (IOException e) {
-			System.err.println("Job in-7 : " + e.getCause());
+			System.err.println("Job in : " + e.getCause());
 			e.printStackTrace();
-		}       
-    }
-  
+		}
+	}
+
 }

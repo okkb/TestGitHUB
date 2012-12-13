@@ -1,15 +1,18 @@
 package message.broker;
 
 public class Mutex { // Mutual Exclusion
-	private transient boolean inuse = false;
+	private boolean inuse = false;
 
 	public void acquire() throws InterruptedException {
-		if (Thread.interrupted())
-			throw new InterruptedException();
-		synchronized (this) {
+//		if (Thread.interrupted()){
+//			throw new InterruptedException();
+//		}
+		synchronized (this)
+		{
 			try {
-				while (inuse)
+				while (inuse){
 					wait();
+					}
 				inuse = true;
 			} catch (InterruptedException ex) {
 				notify();
@@ -19,7 +22,8 @@ public class Mutex { // Mutual Exclusion
 	}
 
 	public void release() {
-		synchronized (this) {
+		synchronized (this) 
+		{
 			inuse = false;
 			notify();
 		}
