@@ -9,8 +9,8 @@ public class WorkerGroup extends Thread {
 	private String serverName = "";
 	private int serverPort = -1;
 	private int clientPort = -1;
-	private final JobQueue que;	
-	private final Worker[] workers;
+	private JobQueue que;	
+	private Worker[] workers;
 	
 	public WorkerGroup(String serverName, int serverPort, int clientPort) {
 		this.serverName = serverName;

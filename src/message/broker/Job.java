@@ -34,12 +34,13 @@ public class Job {
 			System.arraycopy(clientInput, 10, msgField, 0, msgField.length);// 메시지필드 copy
 			System.arraycopy(clientInput, 0, serverOutput, 0, 10); //길이필드 copy
 			System.arraycopy(msgField, 0, serverOutput, 10, msgField.length);// 길이필드 + 메시지필드
+			
 			sdos.write(serverOutput); // to server
 			sdis.readFully(serverInput); // from server
 			if (compare(serverOutput, serverInput)) {
 				cdos.write(serverInput);
 			} else {
-				cdos.writeBytes("[from Server] Message Spec 위반 전송 실패");
+			cdos.writeBytes("[from Server] Message Spec 위반 전송 실패");
 			}
 		} catch (IOException e) {
 			System.err.println("Job 송수신 중 : " + e.getCause());
@@ -88,7 +89,7 @@ public class Job {
 		}
 	}
 
-	private static boolean compare(byte[] src, byte[] dst) { // / 같은지 검사
+	private static boolean compare(byte[] src, byte[] dst) { // 같은지 검사
 		boolean result = true;
 
 		if (src == null || dst == null || src.length != dst.length) {
@@ -104,7 +105,7 @@ public class Job {
 		return result;
 	}
 
-	private static int checkMsgLength(byte[] data) {// / 메시지필드 크기 구함
+	private static int checkMsgLength(byte[] data) {// 메시지필드 크기 구함
 		byte[] msgSize = new byte[10];
 		for (int i = 0; i < 10; i++) {
 			msgSize[i] = data[i];

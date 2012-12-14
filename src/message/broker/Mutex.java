@@ -4,7 +4,8 @@ public class Mutex { // Mutual Exclusion
 	private boolean inuse = false;
  
 	public void acquire() throws InterruptedException {
-		synchronized (this) {
+		synchronized (this) 
+		{
 			try {
 				while (inuse) {
 					wait();

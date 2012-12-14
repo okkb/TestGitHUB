@@ -33,9 +33,6 @@ public class TestClient {
 			System.err.println("java TestClient <host name> <port>");
 			System.exit(2);
 		}
-//
-//		String host = "192.168.0.202";  // 삭제 필요
-//		int port = 6666;					//삭제 필요
 		
 		// 랜덤 데이터 생성
 		byte[] data = new byte[300];
@@ -67,11 +64,6 @@ public class TestClient {
 				} else {
 					System.out.println("데이터 불일치");
 				}
-//				try{
-//				Thread.sleep((int)(Math.random()));
-//				}catch(InterruptedException e){
-//					e.printStackTrace();
-//				}
 				// 연결 종료
 				try {
 					dis.close();

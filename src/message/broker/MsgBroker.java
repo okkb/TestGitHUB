@@ -22,9 +22,6 @@ public class MsgBroker {
 			System.err.println("java MsgBroker <server name> <serverPort> <clientPort>");
 			System.exit(3);
 		}
-//		String serverName = "127.0.0.1";    // 하드 코딩 삭제 필요
-//		int serverPort = 1023;    // 하드 코딩 삭제 필요
-//		int clientPort = 6666;  // 하드 코딩 삭제 필요
 		
 		try {
 			new WorkerGroup(serverName, serverPort, clientPort).start();
