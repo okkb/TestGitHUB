@@ -15,7 +15,6 @@ public class Job {
 	private byte[] clientInput = new byte[300];
 	private byte[] serverInput = new byte[300];
 
-
 	public Job(Socket socket, String serverName, int serverPort) throws IOException
 	{
 		this.socket = socket;
