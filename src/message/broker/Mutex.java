@@ -2,7 +2,7 @@ package message.broker;
 
 public class Mutex { // Mutual Exclusion
 	private boolean inuse = false;
-
+ 
 	public void acquire() throws InterruptedException {
 		synchronized (this) {
 			try {

@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 
 public class TestServer {
 	public static void main(String[] args) throws IOException {
-	int port = -1;
+	int port = -1; 
 	try {
 		port = Integer.parseInt(args[0]);
 	} catch (NumberFormatException e) {

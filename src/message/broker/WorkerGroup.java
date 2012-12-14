@@ -19,7 +19,7 @@ public class WorkerGroup extends Thread {
 		this.que = new JobQueue();
 		this.workers = new Worker[THREAD_COUNT];
 	}
-
+ 
 	public void run() {	
 		workersStart();
 		ServerSocket css = null; // ClientServerSocket
@@ -27,7 +27,7 @@ public class WorkerGroup extends Thread {
 
 		try {
 			css = new ServerSocket(clientPort);
-			System.out.println("MessageBroker가 시작되었습니다.");
+			System.out.println("MessageBroker Start");
 		} catch (IOException e) {
 			System.err.println("css = new ServerSocket(clientPort) : "+ e.getCause());
 			e.printStackTrace();

@@ -3,7 +3,7 @@ package message.broker;
 public class Worker extends Thread {
 	private final JobQueue que;
 
-	public Worker(JobQueue que) // »ý¼ºÀÚ
+	public Worker(JobQueue que)  
 	{
 		this.que = que;
 	}
