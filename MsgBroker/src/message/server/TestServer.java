@@ -40,6 +40,7 @@ class Connection extends Thread {
 				dos = new DataOutputStream(socket.getOutputStream());
 				dis.readFully(data);
 				dos.write(data);
+				dos.flush();
 
 				// 연결 종료
 				try {

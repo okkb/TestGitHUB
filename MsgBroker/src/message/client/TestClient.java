@@ -55,6 +55,7 @@ public class TestClient {
 				DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
 				// 송수신
 				dos.write(data);
+				dos.flush();
 				dis.readFully(result);
 
 				// 결과 확인 - 일치해야 정상

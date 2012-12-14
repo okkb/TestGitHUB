@@ -37,11 +37,14 @@ public class Job {
 			System.arraycopy(clientInput, 10, serverOutput, 10, msgLength);// 메시지필드 copy
 			
 			sdos.write(serverOutput); // to server
+			sdos.flush();
 			sdis.readFully(serverInput); // from server
 			if (compare(serverOutput, serverInput)) {  // 같으면  클라이언트로 응답
 				cdos.write(serverInput);
+				cdos.flush();
 			} else {
 			cdos.writeBytes("[from Server] Message Spec 위반 전송 실패");
+			cdos.flush();
 			}
 		} catch (IOException e) {
 			System.err.println("Job 송수신 중 : " + e.getCause());
