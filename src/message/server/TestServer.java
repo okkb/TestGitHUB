@@ -8,6 +8,14 @@ import java.net.ServerSocket;
 
 public class TestServer {
 	public static void main(String[] args) throws IOException {
+	int port = -1;
+	try {
+		port = Integer.parseInt(args[1]);
+	} catch (NumberFormatException e) {
+		System.err.println("java TestServer <port>");
+		System.exit(0);
+	}
+		//ServerSocket sc = new ServerSocket(port);
 		ServerSocket sc = new ServerSocket(1023);
 		new Connection(sc);
 		System.out.println("¼­¹ö ¿ÀÇÂ");

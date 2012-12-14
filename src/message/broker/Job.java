@@ -14,9 +14,10 @@ public class Job {
 	private DataOutputStream sdos;
 	private byte[] clientInput = new byte[300];
 	private byte[] serverInput = new byte[300];
-	private byte[] msgSize = new byte[10];
+	private byte[] serverOutput = new byte[300];
 
-	public Job(Socket socket, String serverName, int serverPort) throws IOException // 소켓 , 서버아이피, 서버포트
+	public Job(Socket socket, String serverName, int serverPort)
+			throws IOException // 소켓 , 서버아이피, 서버포트
 	{
 		this.socket = socket;
 		this.serverSocket = new Socket(serverName, serverPort); // 서버 접속한 socket
@@ -25,7 +26,85 @@ public class Job {
 		this.sdis = new DataInputStream(this.serverSocket.getInputStream());
 		this.sdos = new DataOutputStream(this.serverSocket.getOutputStream());
 	}
-	private static int checkMsgLength(byte[] data) {/// 메시지필드 크기 구함
+
+	public void execute() {
+		try {
+			cdis.readFully(clientInput); // from client
+			byte[] msgField = new byte[checkMsgLength(clientInput)]; // 메시지내용만큼 공간
+			System.arraycopy(clientInput, 10, msgField, 0, msgField.length);// 메시지필드 copy
+			System.arraycopy(clientInput, 0, serverOutput, 0, 10); //길이필드 copy
+			System.arraycopy(msgField, 0, serverOutput, 10, msgField.length);// 길이필드 + 메시지필드
+			sdos.write(serverOutput); // to server
+			sdis.readFully(serverInput); // from server
+			if (compare(serverOutput, serverInput)) {
+				cdos.write(serverInput);
+			} else {
+				cdos.writeBytes("[from Server] Message Spec 위반 전송 실패");
+			}
+		} catch (IOException e) {
+			System.err.println("Job 송수신 중 : " + e.getCause());
+			e.printStackTrace();
+		}
+
+		try {
+			cdos.close();
+		} catch (IOException e) {
+			System.err.println("cdos.close() : " + e.getCause());
+			e.printStackTrace();
+		} finally {
+			cdos = null;
+		}
+		try {
+			socket.close();
+		} catch (IOException e) {
+			System.err.println("socket.close() : " + e.getCause());
+			e.printStackTrace();
+		} finally {
+			socket = null;
+		}
+		try {
+			sdis.close();
+		} catch (IOException e) {
+			System.err.println("sdis.close() : " + e.getCause());
+			e.printStackTrace();
+		} finally {
+			sdis = null;
+		}
+		try {
+			sdos.close();
+		} catch (IOException e) {
+			System.err.println("	sdos.close() : " + e.getCause());
+			e.printStackTrace();
+		} finally {
+			sdos = null;
+		}
+		try {
+			serverSocket.close();
+		} catch (IOException e) {
+			System.err.println("serverSocket.close() : " + e.getCause());
+			e.printStackTrace();
+		} finally {
+			serverSocket = null;
+		}
+	}
+
+	private static boolean compare(byte[] src, byte[] dst) { // / 같은지 검사
+		boolean result = true;
+
+		if (src == null || dst == null || src.length != dst.length) {
+			result = false;
+		} else {
+			for (int i = 0; i < src.length; i++) {
+				if (src[i] != dst[i]) {
+					result = false;
+					break;
+				}
+			}
+		}
+		return result;
+	}
+
+	private static int checkMsgLength(byte[] data) {// / 메시지필드 크기 구함
 		byte[] msgSize = new byte[10];
 		for (int i = 0; i < 10; i++) {
 			msgSize[i] = data[i];
@@ -47,91 +126,4 @@ public class Job {
 		}
 		return Integer.parseInt(sb.toString()) - 10;
 	}
-	private static boolean compare(byte[] src, byte[] dst) { /// 같은지 검사
-		boolean result = true;
-
-		if (src == null || dst == null || src.length != dst.length) {
-			result = false;
-		} else {
-			for (int i = 0; i < src.length; i++) {
-				if (src[i] != dst[i]) {
-					result = false;
-					break;
-				}
-			}
-		}
-		return result;
-	}
-	public void execute() {
-		try {
-			cdis.readFully(clientInput); // 수신
-			for (int i = 0; i < 10; i++) {
-				msgSize[i] = clientInput[i];
-			}
-
-			// ///////// Spec 검사 수정 필요
-			if (msgSize[7] == '3' && msgSize[8] == '0' && msgSize[9] == '0') {
-				sdos.write(clientInput);// 송신
-				sdis.readFully(serverInput);
-				/*
-				 * 서버에서 온 테이더 spec준수 검사 필요
-				 */
-				cdos.write(serverInput);
-			} else {
-				cdos.writeBytes("[from Broker] Message Spec 위반 전송 실패");
-			}
-			try {
-				cdis.close();
-			} catch (IOException e) {
-				System.err.println("cdis.close() : " + e.getCause());
-				e.printStackTrace();
-			} finally {
-				cdis = null;
-			}
-			try {
-				cdos.close();
-			} catch (IOException e) {
-				System.err.println("cdos.close() : " + e.getCause());
-				e.printStackTrace();
-			} finally {
-				cdos = null;
-			}
-			try {
-				socket.close();
-			} catch (IOException e) {
-				System.err.println("socket.close() : " + e.getCause());
-				e.printStackTrace();
-			} finally {
-				socket = null;
-			}
-			try {
-				sdis.close();
-			} catch (IOException e) {
-				System.err.println("sdis.close() : " + e.getCause());
-				e.printStackTrace();
-			} finally {
-				sdis = null;
-			}
-			try {
-				sdos.close();
-			} catch (IOException e) {
-				System.err.println("	sdos.close() : " + e.getCause());
-				e.printStackTrace();
-			} finally {
-				sdos = null;
-			}
-			try {
-				serverSocket.close();
-			} catch (IOException e) {
-				System.err.println("serverSocket.close() : " + e.getCause());
-				e.printStackTrace();
-			} finally {
-				serverSocket = null;
-			}
-		} catch (IOException e) {
-			System.err.println("Job 송수신 중 : " + e.getCause());
-			e.printStackTrace();
-		}
-	}
-
 }

@@ -33,7 +33,7 @@ public class WorkerGroup extends Thread {
 
 		try {
 			css = new ServerSocket(clientPort);
-			System.out.println("[Worker&Mutex]Broker가 시작되었습니다.");
+			System.out.println("MessageBroker가 시작되었습니다.");
 		} catch (IOException e) {
 			System.err.println("css = new ServerSocket(clientPort) : "+ e.getCause());
 			e.printStackTrace();

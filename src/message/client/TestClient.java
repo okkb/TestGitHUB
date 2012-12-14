@@ -68,7 +68,7 @@ public class TestClient {
 					System.out.println("데이터 불일치");
 				}
 				try{////////////////////////////////////////////////////////////
-				Thread.sleep((int)(Math.random()*10));
+				Thread.sleep((int)(Math.random()));
 				}catch(InterruptedException e){
 					e.printStackTrace();
 				}///////////////////////////////////////////////////////////////
