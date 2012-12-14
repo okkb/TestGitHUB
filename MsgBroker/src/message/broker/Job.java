@@ -16,11 +16,10 @@ public class Job {
 	private byte[] serverInput = new byte[300];
 
 
-	public Job(Socket socket, String serverName, int serverPort)
-			throws IOException // 소켓 , 서버아이피, 서버포트
+	public Job(Socket socket, String serverName, int serverPort) throws IOException
 	{
 		this.socket = socket;
-		this.serverSocket = new Socket(serverName, serverPort); // 서버 접속한 socket
+		this.serverSocket = new Socket(serverName, serverPort);
 		this.serverSocket.setReuseAddress(true);
 		this.cdis = new DataInputStream(this.socket.getInputStream());
 		this.cdos = new DataOutputStream(this.socket.getOutputStream());
