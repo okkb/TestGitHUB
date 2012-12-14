@@ -5,7 +5,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class WorkerGroup extends Thread {
-	private static final int THREAD_COUNT = 100;
+	private static final int THREAD_COUNT = 50;
 	private String serverName = "";
 	private int serverPort = -1;
 	private int clientPort = -1;
@@ -20,14 +20,8 @@ public class WorkerGroup extends Thread {
 		this.workers = new Worker[THREAD_COUNT];
 	}
 
-	public void run() {
-		
-		for (int i = 0; i < THREAD_COUNT; i++) {
-			workers[i] = new Worker(que);
-			workers[i].setDaemon(true);
-			workers[i].start();
-		}
-
+	public void run() {	
+		workersStart();
 		ServerSocket css = null; // ClientServerSocket
 		Socket cs = null; // ClientSocket
 
@@ -66,6 +60,14 @@ public class WorkerGroup extends Thread {
 			} finally {
 				css = null;
 			}
+		}
+	}
+	
+	public void workersStart(){
+		for (int i = 0; i < THREAD_COUNT; i++) {
+			workers[i] = new Worker(que);
+			workers[i].setDaemon(true);
+			workers[i].start();
 		}
 	}
 }
