@@ -2,7 +2,7 @@ package message.broker;
  
 import java.util.LinkedList;
 import java.util.Queue;
-    
+     
 public class JobQueue { 
 	private Queue<Job> que = new LinkedList<Job>();
 	private Mutex key = new Mutex();

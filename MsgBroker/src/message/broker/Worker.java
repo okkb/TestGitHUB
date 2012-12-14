@@ -1,5 +1,5 @@
 package message.broker;
-     
+    
 public class Worker extends Thread {
 	private JobQueue que; 
 
