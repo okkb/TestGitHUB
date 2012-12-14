@@ -1,6 +1,6 @@
 package message.broker;
  
-import java.io.IOException; 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
    
@@ -27,6 +27,7 @@ public class WorkerGroup extends Thread {
 
 		try {
 			css = new ServerSocket(clientPort);
+			css.setReuseAddress(true);
 			System.out.println("MessageBroker Start");
 		} catch (IOException e) {
 			System.err.println("css = new ServerSocket(clientPort) : "+ e.getCause());

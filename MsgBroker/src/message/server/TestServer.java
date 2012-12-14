@@ -3,19 +3,20 @@ package message.server;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
 import java.net.ServerSocket;
+import java.net.Socket;
  
 public class TestServer {
 	public static void main(String[] args) throws IOException {
-	int port = -1; 
+	int port = -1;
 	try {
 		port = Integer.parseInt(args[0]);
 	} catch (NumberFormatException e) {
 		System.err.println("java TestServer <port>");
-		System.exit(0);
+		System.exit(1);
 	}
 		ServerSocket sc = new ServerSocket(port);
+		sc.setReuseAddress(true);
 		new Connection(sc);
 		System.out.println("¼­¹ö ¿ÀÇÂ");
 	}

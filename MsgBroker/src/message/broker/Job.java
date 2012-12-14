@@ -21,6 +21,7 @@ public class Job {
 	{
 		this.socket = socket;
 		this.serverSocket = new Socket(serverName, serverPort); // 서버 접속한 socket
+		this.serverSocket.setReuseAddress(true);
 		this.cdis = new DataInputStream(this.socket.getInputStream());
 		this.cdos = new DataOutputStream(this.socket.getOutputStream());
 		this.sdis = new DataInputStream(this.serverSocket.getInputStream());
@@ -28,7 +29,7 @@ public class Job {
 	}
 
 	public void execute() {
-		try {
+		try {		
 			cdis.readFully(clientInput); // from client
 			int msgLength = checkMsgLength(clientInput);
 			int totalLength = msgLength+10;
