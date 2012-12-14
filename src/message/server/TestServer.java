@@ -16,7 +16,6 @@ public class TestServer {
 		System.exit(0);
 	}
 		ServerSocket sc = new ServerSocket(port);
-//		ServerSocket sc = new ServerSocket(1023);  //하드코딩 삭제 필요
 		new Connection(sc);
 		System.out.println("서버 오픈");
 	}

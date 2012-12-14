@@ -14,7 +14,7 @@ public class Job {
 	private DataOutputStream sdos;
 	private byte[] clientInput = new byte[300];
 	private byte[] serverInput = new byte[300];
-	private byte[] serverOutput = new byte[300];
+
 
 	public Job(Socket socket, String serverName, int serverPort)
 			throws IOException // 소켓 , 서버아이피, 서버포트
@@ -30,14 +30,15 @@ public class Job {
 	public void execute() {
 		try {
 			cdis.readFully(clientInput); // from client
-			byte[] msgField = new byte[checkMsgLength(clientInput)]; // 메시지내용만큼 공간
-			System.arraycopy(clientInput, 10, msgField, 0, msgField.length);// 메시지필드 copy
+			int msgLength = checkMsgLength(clientInput);
+			int totalLength = msgLength+10;
+			byte[] serverOutput = new byte[totalLength];// 메시지내용만큼 공간
 			System.arraycopy(clientInput, 0, serverOutput, 0, 10); //길이필드 copy
-			System.arraycopy(msgField, 0, serverOutput, 10, msgField.length);// 길이필드 + 메시지필드
+			System.arraycopy(clientInput, 10, serverOutput, 10, msgLength);// 메시지필드 copy
 			
 			sdos.write(serverOutput); // to server
 			sdis.readFully(serverInput); // from server
-			if (compare(serverOutput, serverInput)) {
+			if (compare(serverOutput, serverInput)) {  // 같으면  클라이언트로 응답
 				cdos.write(serverInput);
 			} else {
 			cdos.writeBytes("[from Server] Message Spec 위반 전송 실패");
