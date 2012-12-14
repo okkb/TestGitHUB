@@ -20,14 +20,14 @@ public class TestServer {
 		System.out.println("¼­¹ö ¿ÀÇÂ");
 	}
 }
-
+ 
 class Connection extends Thread {
 	private Socket socket;
 	private ServerSocket sc;
 	private DataInputStream dis = null;
 	private DataOutputStream dos = null;
 	public Connection(ServerSocket sc) {
-		this.sc = sc;
+		this.sc = sc; 
 		start();
 	}
 

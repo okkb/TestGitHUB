@@ -1,5 +1,5 @@
-package message.broker;
-
+ package message.broker;
+ 
 public class Mutex { // Mutual Exclusion
 	private boolean inuse = false;
  
