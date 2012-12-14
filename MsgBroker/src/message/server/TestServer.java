@@ -30,7 +30,7 @@ class Connection extends Thread {
 		this.sc = sc; 
 		start();
 	}
-
+	
 	public void run() {
 		try {
 			while (true) {
