@@ -56,7 +56,7 @@ public class Job {
 		} finally {
 			cdos = null;
 		}
-		try {
+		try { 
 			socket.close();
 		} catch (IOException e) {
 			System.err.println("socket.close() : " + e.getCause());

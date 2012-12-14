@@ -3,7 +3,7 @@ package message.broker;
  
 public class MsgBroker { 
 	public static void main(String args[]) {
-		if (args.length != 3) {
+		if (args.length != 3) { 
 			System.err.println("java MsgBroker <server name> <serverPort> <clientPort>");
 			System.exit(1);
 		}

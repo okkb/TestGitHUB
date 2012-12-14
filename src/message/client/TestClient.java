@@ -92,7 +92,7 @@ public class TestClient {
 			System.err.println("통신 오류");
 			e.printStackTrace();
 		}
-	}
+	} 
 
 	/** 
 	 * Source와 destination을 비교

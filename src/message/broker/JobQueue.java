@@ -2,11 +2,11 @@ package message.broker;
  
 import java.util.LinkedList;
 import java.util.Queue;
-
-public class JobQueue {
+ 
+public class JobQueue { 
 	private Queue<Job> Queue = new LinkedList<Job>();
-	private final Mutex KEY = new Mutex();
-	private final Mutex STOP_KEY = new Mutex();
+	private Mutex KEY = new Mutex();
+	private Mutex STOP_KEY = new Mutex();
 	
 	public void enQueue(Job job) throws InterruptedException {
 		KEY.acquire(); // KEY È¹µæ ¼º°ø
