@@ -48,7 +48,6 @@ public class TestClient {
 		data[7] = '3';
 
 		try {
-			long count =0;
 			while (true) {
 				// 연결
 				Socket sock = new Socket(host, port);
@@ -60,7 +59,7 @@ public class TestClient {
 
 				// 결과 확인 - 일치해야 정상
 				if (compare(data, result)) {					
-					System.out.println("데이터 일치"+(count++));
+					System.out.print("데이터 일치 : ");
 					System.out.println(result);
 				} else {
 					System.out.println("데이터 불일치");
