@@ -63,7 +63,6 @@ public class TestClient {
 				// 결과 확인 - 일치해야 정상
 				if (compare(data, result)) {
 					System.out.println((i++) + "번째 수행 : 데이터 일치");
-					//System.out.println(result);
 				} else {
 					System.out.println((i++) + "데이터 불일치");
 				}
