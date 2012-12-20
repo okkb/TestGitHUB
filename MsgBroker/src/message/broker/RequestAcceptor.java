@@ -6,11 +6,10 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-
 import main.java.lempel.blueprint.base.concurrent.WorkerGroup;
    
 public class RequestAcceptor extends Thread {
-	private final int THREAD_COUNT;
+	private final int WORKER_COUNT;
 	private String serverName = "";
 	private int serverPort = -1;
 	private int clientPort = -1;
@@ -21,8 +20,8 @@ public class RequestAcceptor extends Thread {
 		this.serverName = serverName;
 		this.serverPort = serverPort;
 		this.clientPort = clientPort;
-		this.THREAD_COUNT=workerCount;
-		this.wGroup = new WorkerGroup(JobWorker.class, THREAD_COUNT);
+		this.WORKER_COUNT=workerCount;
+		this.wGroup = new WorkerGroup(JobWorker.class, WORKER_COUNT);
 	}
  
 	public void run() {
@@ -31,7 +30,7 @@ public class RequestAcceptor extends Thread {
 		try {					
 			css = new ServerSocket();
 			css.setReuseAddress(true);
-			css.bind(new InetSocketAddress(InetAddress.getByName(serverName), clientPort), 30);
+			css.bind(new InetSocketAddress(InetAddress.getByName(serverName), clientPort), 15);
 			System.out.println("MessageBroker Start");
 		} catch (IOException e) {
 			System.err.println("Cause : "+ e.getCause());
