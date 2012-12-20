@@ -4,8 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-   
+
 public class Job {
+
 	private Socket socket = null;
 	private Socket serverSocket = null;
 	private DataInputStream cdis;
@@ -34,7 +35,6 @@ public class Job {
 			byte[] serverOutput = new byte[totalLength];// 메시지내용만큼 공간
 			System.arraycopy(clientInput, 0, serverOutput, 0, 10); //길이필드 copy
 			System.arraycopy(clientInput, 10, serverOutput, 10, msgLength);// 메시지필드 copy
-			
 			sdos.write(serverOutput); // to server
 			sdos.flush();
 			sdis.readFully(serverInput); // from server
@@ -45,8 +45,15 @@ public class Job {
 		} catch (IOException e) {
 			System.err.println("Job 송수신 중 : " + e.getCause());
 			e.printStackTrace();
+		}	
+		try {
+			cdis.close();
+		} catch (IOException e) {
+			System.err.println("cdis.close() : " + e.getCause());
+			e.printStackTrace();
+		} finally {
+			cdis = null;
 		}
-
 		try {
 			cdos.close();
 		} catch (IOException e) {

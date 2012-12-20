@@ -1,14 +1,14 @@
 package message.client;
-  
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
- 
+
 /**
  * 테스트용 client
- *  
+ * 
  * @author Simon Lee
  */
 public class TestClient {
@@ -33,7 +33,7 @@ public class TestClient {
 			System.err.println("java TestClient <host name> <port>");
 			System.exit(2);
 		}
-		
+
 		// 랜덤 데이터 생성
 		byte[] data = new byte[300];
 		byte[] result = new byte[300];
@@ -48,7 +48,7 @@ public class TestClient {
 		data[7] = '3';
 
 		try {
-			int i=0;
+			int i = 0;
 			while (true) {
 				// 연결
 				Socket sock = new Socket(host, port);
@@ -61,11 +61,11 @@ public class TestClient {
 				dis.readFully(result);
 
 				// 결과 확인 - 일치해야 정상
-				if (compare(data, result)) {					
-					System.out.print("데이터 일치 : "+i++);
-					System.out.println(result);
+				if (compare(data, result)) {
+					System.out.println((i++) + "번째 수행 : 데이터 일치");
+					//System.out.println(result);
 				} else {
-					System.out.println("데이터 불일치");
+					System.out.println((i++) + "데이터 불일치");
 				}
 				// 연결 종료
 				try {
@@ -94,9 +94,9 @@ public class TestClient {
 			System.err.println("통신 오류");
 			e.printStackTrace();
 		}
-	} 
+	}
 
-	/** 
+	/**
 	 * Source와 destination을 비교
 	 * 
 	 * @param src
