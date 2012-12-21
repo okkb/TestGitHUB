@@ -15,7 +15,7 @@ public class RequestAcceptor extends Thread {
 	private int clientPort = -1;
 	private WorkerGroup wGroup;
 
-	public RequestAcceptor(String serverName, int serverPort, int clientPort,	int workerCount) throws IllegalArgumentException,	SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+	public RequestAcceptor(String serverName, int serverPort, int clientPort, int workerCount) throws IllegalArgumentException,	SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		super();
 		this.serverName = serverName;
 		this.serverPort = serverPort;
@@ -30,7 +30,7 @@ public class RequestAcceptor extends Thread {
 		try {
 			css = new ServerSocket();
 			css.setReuseAddress(true);
-			css.bind(new InetSocketAddress(InetAddress.getByName(serverName),	clientPort), 15);
+			css.bind(new InetSocketAddress(InetAddress.getByName(serverName), clientPort), 15);
 			System.out.println("MessageBroker Start");
 		} catch (IOException e) {
 			System.err.println("Cause : " + e.getCause());
